@@ -11,15 +11,20 @@ import edu.eci.arsw.cinema.model.Movie;
 import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
  * @author cristian
  */
+
+@Service("inMemory")
 public class InMemoryCinemaPersistence implements CinemaPersitence{
     
     private final Map<String,Cinema> cinemas=new HashMap<>();
@@ -37,13 +42,22 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     }    
 
     @Override
-    public void buyTicket(int row, int col, String cinema, String date, String movieName) throws CinemaException {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public void buyTicket(int row, int col, String cinema, String date, String movieName) throws CinemaException, CinemaPersistenceException {
+        Cinema selectedCinema=getCinema(cinema);
+        List<CinemaFunction> selected_functions=selectedCinema.getFunctions().stream()
+                .filter(f -> f.getDate().equals(date) && f.getMovie().getName().equals(movieName))
+                .collect(Collectors.toList());
+        selected_functions.get(0).buyTicket(row,col);
+
     }
 
     @Override
-    public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) throws CinemaPersistenceException {
+        Cinema selectedCinema=getCinema(cinema);
+        List<CinemaFunction> selected_functions=selectedCinema.getFunctions().stream()
+                .filter(f -> f.getDate().equals(date))
+                .collect(Collectors.toList());
+        return selected_functions;
     }
 
     @Override
