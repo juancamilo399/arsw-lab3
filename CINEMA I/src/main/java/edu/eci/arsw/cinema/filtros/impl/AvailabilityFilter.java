@@ -17,8 +17,15 @@ public class AvailabilityFilter implements CinemaFilter{
         List<CinemaFunction> newFunctions = new ArrayList<CinemaFunction>();
         int seats = Integer.parseInt(filtro);
         for(CinemaFunction c : functions){
-            int emptySeats = c.getSeats().size()*c.getSeats().get(0).size();
-            if(emptySeats > seats){
+            int empty = 84;
+            for(List<Boolean> list : c.getSeats()){
+                for(Boolean b : list){
+                    if(b == false){
+                        empty -=1;
+                    }
+                }
+            }
+            if(empty>=seats){
                 newFunctions.add(c);
             }
         }
