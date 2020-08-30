@@ -35,5 +35,10 @@ public class Main {
         for (CinemaFunction function : lista2) {
             System.out.println(function.toString());
         }
+
+
+        List<CinemaFunction>selected_functions=cs.filterCinemas("cinemaX","2018-12-18 15:30","Horror");
+        System.out.println("Peliculas de terror");
+        selected_functions.stream().forEach(f-> System.out.println(f.getMovie().getName()));
     }
 }

@@ -1,19 +1,21 @@
 
+import edu.eci.arsw.cinema.filtros.impl.AvailabilityFilter;
+import edu.eci.arsw.cinema.filtros.impl.GenreFilter;
 import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.CinemaFunction;
 import edu.eci.arsw.cinema.model.Movie;
 import edu.eci.arsw.cinema.persistence.CinemaException;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
+import edu.eci.arsw.cinema.persistence.CinemaPersitence;
 import edu.eci.arsw.cinema.persistence.impl.InMemoryCinemaPersistence;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -28,10 +30,14 @@ import org.junit.Test;
 public class InMemoryPersistenceTest {
 
     private InMemoryCinemaPersistence memoryTester;
+    private AvailabilityFilter availabilityFilter;
+    private GenreFilter genreFilter;
 
     @Before
     public void setUp(){
         memoryTester = new InMemoryCinemaPersistence();
+        availabilityFilter = new AvailabilityFilter();
+        genreFilter = new GenreFilter();
     }
 
     @Test
@@ -259,4 +265,6 @@ public class InMemoryPersistenceTest {
                 
         
     }
+
+
 }
