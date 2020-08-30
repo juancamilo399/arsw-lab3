@@ -31,10 +31,6 @@ public class CinemaServices {
     @Autowired
     @Qualifier("Genre")
     CinemaFilter cf=null;
-    
-    public void addNewCinema(Cinema c) {
-        cps.addCinema(c);
-    }
 
     public List<CinemaFunction> filterCinemas(String cinema , String date , String filtro) throws CinemaPersistenceException {
         List<CinemaFunction> functions = getFunctionsbyCinemaAndDate(cinema, date);
@@ -64,5 +60,7 @@ public class CinemaServices {
         return cps.getFunctionsbyCinemaAndDate(cinema,date);
     }
 
-
+    public void saveCinema(Cinema cinema) throws CinemaPersistenceException {
+        cps.saveCinema(cinema);
+    }
 }

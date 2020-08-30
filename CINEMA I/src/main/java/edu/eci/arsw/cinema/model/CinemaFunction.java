@@ -34,6 +34,9 @@ public class CinemaFunction {
     }
     
     public void buyTicket(int row,int col) throws CinemaException{
+        if(row < 0 || col <0 || row > 7 || col > 12){
+            throw new CinemaException("Sillas inexistentes");
+        }
         if (seats.get(row).get(col).equals(true)){
             seats.get(row).set(col,Boolean.FALSE);
         }
@@ -61,8 +64,13 @@ public class CinemaFunction {
     public void setDate(String date) {
         this.date = date;
     }
-    
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "CinemaFunction{" +
+                "movie=" + movie.getName() +
+                ", seats=" + seats +
+                ", date='" + date + '\'' +
+                '}';
+    }
 }

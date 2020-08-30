@@ -38,4 +38,12 @@ public class Cinema {
     public void setSchedule(List<CinemaFunction> functions) {
         this.functions = functions;
     }
+
+    @Override
+    public String toString() {
+        return "Cinema{" +
+                "name='" + name + '\'' +
+                ", functions=" + functions +
+                '}';
+    }
 }

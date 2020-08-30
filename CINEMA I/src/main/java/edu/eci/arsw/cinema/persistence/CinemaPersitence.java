@@ -53,12 +53,6 @@ public interface CinemaPersitence {
     public Cinema getCinema(String name) throws CinemaPersistenceException;
 
     /**
-     * @param c cinema to be added
-     */
-
-    public void addCinema(Cinema c);
-
-    /**
      * @return All the cinemas
      */
 

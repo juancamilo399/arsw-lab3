@@ -3,8 +3,11 @@ package edu.eci.arsw.cinema.filtros.impl;
 
 import edu.eci.arsw.cinema.filtros.CinemaFilter;
 import edu.eci.arsw.cinema.model.CinemaFunction;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+@Service("Availability")
 
 public class AvailabilityFilter implements CinemaFilter{
 

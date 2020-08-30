@@ -40,17 +40,28 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 
     @Override
     public void buyTicket(int row, int col, String cinema, String date, String movieName) throws CinemaException, CinemaPersistenceException {
+        if(cinema == null || date == null || movieName == null){
+            throw new CinemaPersistenceException("Alguno de los parametros es nulo");
+        }
         Cinema selectedCinema=getCinema(cinema);
+        if(selectedCinema==null){
+            throw new CinemaPersistenceException("El cinema no existe");
+        }
         List<CinemaFunction> selected_functions=selectedCinema.getFunctions().stream()
                 .filter(f -> f.getDate().equals(date) && f.getMovie().getName().equals(movieName))
                 .collect(Collectors.toList());
         selected_functions.get(0).buyTicket(row,col);
-
     }
 
     @Override
     public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) throws CinemaPersistenceException {
+        if(cinema == null || date == null){
+            throw new CinemaPersistenceException("Alguno de los parametros es nulo");
+        }
         Cinema selectedCinema=getCinema(cinema);
+        if(selectedCinema==null){
+            throw new CinemaPersistenceException("El cinema no existe");
+        }
         List<CinemaFunction> selected_functions=selectedCinema.getFunctions().stream()
                 .filter(f -> f.getDate().equals(date))
                 .collect(Collectors.toList());
@@ -59,6 +70,9 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 
     @Override
     public void saveCinema(Cinema c) throws CinemaPersistenceException {
+        if(c == null){
+            throw new CinemaPersistenceException("Cannot save a null Cinema");
+        }
         if (cinemas.containsKey(c.getName())){
             throw new CinemaPersistenceException("The given cinema already exists: "+c.getName());
         }
@@ -69,17 +83,18 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 
     @Override
     public Cinema getCinema(String name) throws CinemaPersistenceException {
+        if(name==null){
+            throw new CinemaPersistenceException("El nombre del cinema no puede ser nulo");
+        }
+        if(!cinemas.containsKey(name)){
+            throw new CinemaPersistenceException("El cinema no existe");
+        }
         return cinemas.get(name);
     }
 
     @Override
-    public void addCinema(Cinema c) {
-        cinemas.put(c.getName(),c);
-    }
-
-    @Override
     public Set<Cinema> getCinemas() {
-        return (Set<Cinema>) cinemas.values();
+        return new HashSet(cinemas.values());
     }
 
 }
