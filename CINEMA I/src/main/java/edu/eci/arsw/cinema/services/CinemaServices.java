@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.cinema.services;
 
+import edu.eci.arsw.cinema.filtros.CinemaFilter;
 import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.CinemaFunction;
 import edu.eci.arsw.cinema.persistence.CinemaException;
@@ -22,16 +23,26 @@ import org.springframework.stereotype.Service;
  */
 @Service("cinemaService")
 public class CinemaServices {
+
     @Autowired
     @Qualifier("inMemory")
     CinemaPersitence cps=null;
+
+    @Autowired
+    @Qualifier("Genre")
+    CinemaFilter cf=null;
     
-    public void addNewCinema(Cinema c){
-        
+    public void addNewCinema(Cinema c) {
+        cps.addCinema(c);
+    }
+
+    public List<CinemaFunction> filterCinemas(String cinema , String date , String filtro) throws CinemaPersistenceException {
+        List<CinemaFunction> functions = getFunctionsbyCinemaAndDate(cinema, date);
+        return cf.filter(functions, filtro);
     }
     
     public Set<Cinema> getAllCinemas(){
-        return null;
+        return cps.getCinemas();
     }
     
     /**

@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext;
 import java.util.List;
 
 
-public class App {
+public class Main {
 
     public static void main(String a[]) throws CinemaException, CinemaPersistenceException {
         ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -24,9 +24,5 @@ public class App {
         for (CinemaFunction function : lista2) {
             System.out.println(function.getSeats());
         }
-
-
-
-
     }
 }

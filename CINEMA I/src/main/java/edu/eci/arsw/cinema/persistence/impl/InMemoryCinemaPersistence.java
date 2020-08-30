@@ -13,10 +13,7 @@ import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -73,6 +70,16 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     @Override
     public Cinema getCinema(String name) throws CinemaPersistenceException {
         return cinemas.get(name);
+    }
+
+    @Override
+    public void addCinema(Cinema c) {
+        cinemas.put(c.getName(),c);
+    }
+
+    @Override
+    public Set<Cinema> getCinemas() {
+        return (Set<Cinema>) cinemas.values();
     }
 
 }
